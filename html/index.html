@@ -1,0 +1,634 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUSE Marketplace</title>
+    <meta name="description" content="Explore products and shops at BUSE Marketplace.">
+
+    <link rel="stylesheet" href="css/styles.css?v=10">
+    <!-- CSS styling is included in this HTML file -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f6fb;
+            color: #172b4d;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        header {
+            position: sticky;
+            top: 12px;
+            z-index: 100;
+            width: min(1200px, calc(100% - 32px));
+            margin: 12px auto;
+            border: 1px solid #fff4fbd9;
+            border-radius: 18px;
+            background: #fce7f3c9;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 12px 32px #9d42651c, inset 0 1px 0 #ffffffd9;
+            -webkit-backdrop-filter: blur(18px) saturate(145%);
+            backdrop-filter: blur(18px) saturate(145%);
+        }
+
+        .logo {
+            color: #0756ad;
+            font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.6px;
+        }
+
+        .logo span {
+            color: #172b4d;
+            font-weight: 800;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 22px;
+        }
+
+        nav a {
+            color: #344563;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #0875e1;
+        }
+
+        .login-btn {
+            background: #0756ad;
+            color: white;
+            padding: 10px 17px;
+            border-radius: 6px;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at 82% 18%, #ffffffb8 0, transparent 38%),
+                linear-gradient(118deg, #edf7ff 0%, #f4f1ff 58%, #fbf5ff 100%);
+            color: #172b4d;
+            padding: clamp(58px, 8vw, 100px) 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: clamp(32px, 6vw, 80px);
+            flex-wrap: wrap;
+        }
+
+        .hero::after {
+            position: absolute;
+            right: -100px;
+            bottom: -180px;
+            width: 420px;
+            height: 420px;
+            border: 1px solid #ffffffb8;
+            border-radius: 50%;
+            box-shadow: 0 0 0 35px #ffffff35, 0 0 0 70px #ffffff24;
+            content: "";
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 650px;
+        }
+
+        .hero-eyebrow {
+            margin-bottom: 14px;
+            color: #0756a5;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            max-width: 620px;
+            margin-bottom: 18px;
+            color: #15345b;
+            font-family: "Segoe UI", Arial, sans-serif;
+            font-size: clamp(22px, 2.2vw, 28px);
+            font-weight: 750;
+            letter-spacing: -1.5px;
+            line-height: 1.12;
+            text-shadow:
+                0 1px 0 #ffffff,
+                0 3px 0 #dce8f4,
+                0 7px 14px #1c3d6418;
+            transform: translateY(-2px);
+        }
+
+        .hero-accent {
+            display: block;
+            color: #a826a8;
+            text-shadow:
+                0 1px 0 #ffffff,
+                0 3px 0 #f0d8ef,
+                0 7px 14px #8c328e20;
+        }
+
+        .hero p {
+            max-width: 530px;
+            margin-bottom: 26px;
+            color: #64748b;
+            font-size: 17px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 13px 21px;
+            border-radius: 9px;
+            font-weight: bold;
+            margin: 5px 8px 5px 0;
+            transition: transform .2s, box-shadow .2s, background .2s;
+        }
+
+        .button-white {
+            background: #0756a5;
+            color: white;
+            box-shadow: 0 7px 16px #0756a533;
+        }
+
+        .button-white:hover {
+            background: #073568;
+            box-shadow: 0 10px 20px #0756a540;
+            transform: translateY(-2px);
+        }
+
+        .button-outline {
+            border: 1px solid #b9c9dc;
+            background: #ffffffa8;
+            color: #0756a5;
+        }
+
+        .button-outline:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        .hero-logo-card {
+            position: relative;
+            display: grid;
+            place-items: center;
+            z-index: 1;
+            width: clamp(190px, 27vw, 280px);
+            min-height: 230px;
+            padding: 22px;
+            border: 1px solid #ffffffc9;
+            border-radius: 22px;
+            background: linear-gradient(145deg, #ffffffa8, #ffffff52);
+            box-shadow:
+                inset 0 1px 0 #ffffffd9,
+                0 24px 55px #263e6524,
+                0 8px 18px #526b9320;
+            -webkit-backdrop-filter: blur(14px) saturate(135%);
+            backdrop-filter: blur(14px) saturate(135%);
+            animation: hero-logo-float 6s ease-in-out infinite;
+        }
+
+        @keyframes hero-logo-float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-9px);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-logo-card {
+                animation: none;
+            }
+        }
+
+        .hero-logo {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+
+        .section {
+            padding: 65px 7%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-heading h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #c21bcb;
+            text-shadow:
+                0 1px 0 #ffffff,
+                0 3px 0 #e1eaf4,
+                0 7px 12px #1c3d6414;
+            transform: translateY(-2px);
+        }
+
+        .step h3,
+        .shop-card h3 {
+            text-shadow:
+                0 1px 0 #ffffff,
+                0 2px 0 #e5edf5,
+                0 5px 9px #1c3d6410;
+        }
+
+        .call-to-action h2 {
+            text-shadow:
+                0 1px 0 #ffffff,
+                0 3px 0 #d7e5f2,
+                0 7px 12px #1c3d6414;
+            transform: translateY(-2px);
+        }
+
+        .section-heading p {
+            color: #62748b;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .shop-card {
+            background: rgb(255, 255, 255);
+            padding: 27px 20px;
+            border-radius: 12px;
+            border: 1px solid #e1e9f3;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .shop-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px #123b6715;
+        }
+
+        .shop-icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .shop-card h3 {
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .shop-card p {
+            color: #1065d3;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .shop-card a {
+            color: #0756ad;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .how-section {
+            background: white;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 25px;
+            text-align: center;
+        }
+
+        .step {
+            padding: 25px;
+            background: #f5f8fc;
+            border-radius: 10px;
+        }
+
+        .step-number {
+            display: inline-grid;
+            place-items: center;
+            background: #0756ad;
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            color: #62748b;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .call-to-action {
+            background: #e7f1ff;
+            text-align: center;
+            padding: 50px 7%;
+        }
+
+        .call-to-action h2 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .call-to-action p {
+            color: #62748b;
+            margin-bottom: 20px;
+        }
+
+        .primary-btn {
+            background: #0756ad;
+            color: white;
+        }
+
+        footer {
+            background: #3a12ce;
+            color: white;
+            padding: 40px 7% 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr;
+            gap: 35px;
+            margin-bottom: 30px;
+        }
+
+        footer h3 {
+            margin-bottom: 13px;
+            font-size: 16px;
+        }
+
+        footer p,
+        footer a {
+            color: #d1deee;
+            font-size: 13px;
+        }
+
+        footer a {
+            display: block;
+            margin: 7px 0;
+        }
+
+        footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            border-top: 1px solid #ffffff30;
+            padding-top: 18px;
+            text-align: center;
+            color: #c1d0e2;
+            font-size: 12px;
+        }
+
+        @media (max-width: 900px) {
+            .shop-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
+        @media (max-width: 600px) {
+            header {
+                justify-content: center;
+            }
+
+            nav {
+                justify-content: center;
+                gap: 13px;
+            }
+
+            .hero {
+                padding: 55px 7%;
+            }
+
+            .steps,
+            .footer-grid,
+            .shop-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+
+    <!-- Optional JavaScript file. Create js/script.js if you need extra interactions. -->
+    <script src="js/script.js" defer></script>
+    
+</head>
+
+<body>
+
+    <!-- HEADER AND NAVIGATION -->
+    <header>
+        <a href="../php/index.php" class="logo">BUSE <span>MARKETPLACE</span></a>
+
+        <nav aria-label="Main navigation">
+            <a href="../php/index.php">Home</a>
+            <a href="../php/products.php">Products</a>
+            <a href="../php/shops.php">Shops</a>
+            <a href="../php/online-payment.php" class="login-btn">Online Payment</a>
+            <a href="../php/admin-login.php">Admin Login</a>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <p class="hero-eyebrow">BUSE CAMPUS MARKETPLACE</p>
+                <h1>
+                    Shop with us at Bindura University of Science and Education
+                    <span class="hero-accent">Your Marketplace.</span>
+                </h1>
+                <p>
+                    Discover products from campus shops and local businesses.
+                    Browse products, compare prices and connect with sellers
+                    through BUSE Marketplace.
+                </p>
+
+                <a href="../php/products.php" class="button button-white">
+                    Explore Products →
+                </a>
+
+                <a href="../php/shops.php" class="button button-outline">
+                    Browse Shops
+                </a>
+            </div>
+
+            <div class="hero-logo-card">
+                <img class="hero-logo" src="../assets/buse-logo.jpg"
+                     alt="Bindura University of Science Education logo">
+            </div>
+        </section>
+
+        <!-- SHOP CATEGORIES -->
+        <section class="section">
+            <div class="section-heading">
+                <h2>Explore Our Shops</h2>
+                <p>Find what you need from our different shop categories.</p>
+            </div>
+
+            <div class="shop-grid">
+
+                <article class="shop-card">
+                    <div class="shop-icon">💻</div>
+                    <h3>Palpo Store</h3>
+                    <p>Laptops, mobile phones and technology accessories.</p>
+                    <a href="../php/shop.php?shop=Palpo%20Store">View Shop →</a>
+                    <a href="../php/products.php?shop=Palpo%20Store">
+                        View Products →
+                    </a>
+                </article>
+
+                <article class="shop-card">
+                    <div class="shop-icon">🥬</div>
+                    <h3>Grocery Shop</h3>
+                    <p>Groceries and everyday household essentials.</p>
+                    <a href="../php/shop.php?shop=Grocery%20Shop">View Shop →</a>
+                    <a href="../php/products.php?shop=Grocery%20Shop">
+                        View Products →
+                    </a>
+                </article>
+
+                <article class="shop-card">
+                    <div class="shop-icon">👕</div>
+                    <h3>Clothes Shop</h3>
+                    <p>Clothing, fashion and other wearable products.</p>
+                    <a href="../php/shop.php?shop=Clothes%20Shop">View Shop →</a>
+                    <a href="../php/products.php?shop=Clothes%20Shop">
+                        View Products →
+                    </a>
+                </article>
+
+                <article class="shop-card">
+                    <div class="shop-icon">🧺</div>
+                    <h3>Masawo Shop</h3>
+                    <p>Locally manufactured and finished products.</p>
+                    <a href="../php/shop.php?shop=Masawo%20Shop">View Shop →</a>
+                    <a href="../php/products.php?shop=Masawo%20Shop">
+                        View Products →
+                    </a>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section class="section how-section">
+            <div class="section-heading">
+                <h2>How It Works</h2>
+                <p>Discover products and connect with sellers in a few steps.</p>
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Browse</h3>
+                    <p>Explore shops and available product listings.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Compare</h3>
+                    <p>Check product descriptions and listed prices.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Connect</h3>
+                    <p>Contact the seller to enquire about a product.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CALL TO ACTION -->
+        <section class="call-to-action">
+            <h2>Ready to Explore?</h2>
+            <p>Visit the products page and see what is available.</p>
+            <a href="../php/products.php" class="button primary-btn">
+                Browse Products →
+            </a>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+
+            <div>
+                <h3>BUSE Marketplace</h3>
+                <p>
+                    A marketplace website concept designed to connect shoppers
+                    with campus shops and local businesses.
+                </p>
+            </div>
+
+            <div>
+                <h3>Quick Links</h3>
+                <a href="../php/index.php">Home</a>
+                <a href="../php/products.php">Products</a>
+                <a href="../php/shops.php">Shops</a>
+                <a href="../php/online-payment.php">Online Payment</a>
+                <a href="../php/admin-login.php">Admin Login</a>
+            </div>
+
+            <div>
+                <h3>University Information</h3>
+                <p>Bindura University of Science Education</p>
+                <p>Bindura, Mashonaland Central, Zimbabwe</p>
+                <a href="https://www.buse.ac.zw/"
+                   target="_blank" rel="noopener noreferrer">
+                    Official BUSE Website ↗
+                </a>
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            &copy; <span id="year">2026</span> BUSE Marketplace.
+            Academic project prototype.
+        </div>
+    </footer>
+
+    <script>
+        // Update the footer year automatically.
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+
+</body>
+</html>
